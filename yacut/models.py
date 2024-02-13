@@ -2,6 +2,7 @@ from datetime import datetime
 from settings import API_FIELDS, MAX_LEN_SHORT
 from yacut import db
 
+
 class URLMap(db.Model):
     """
     Модель для отображения оригинальной и короткой ссылок в базе данных.

@@ -2,6 +2,7 @@ import os
 import re
 import string
 
+
 class Config(object):
     """
     Конфигурационные параметры приложения.
@@ -11,6 +12,7 @@ class Config(object):
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.getenv("SECRET_KEY")
+
 
 MAX_LEN_SHORT = 16
 AUTO_LEN_SHORT = 6

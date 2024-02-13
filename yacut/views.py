@@ -5,6 +5,7 @@ from . import app, db
 from .forms import URLForm
 from .models import URLMap
 
+
 def get_unique_short_id(symbols=CHAR_SET, length=AUTO_LEN_SHORT):
     """
     Генерирует уникальный короткий идентификатор для ссылки.
@@ -13,6 +14,7 @@ def get_unique_short_id(symbols=CHAR_SET, length=AUTO_LEN_SHORT):
     while URLMap.query.filter_by(short=result).first():
         result = "".join(random.choices(symbols, k=length))
     return result
+
 
 @app.route("/", methods=["GET", "POST"])
 def index_view():
@@ -36,6 +38,7 @@ def index_view():
         short_url = url_for("redirect_view", short_id=url_map.short, _external=True)
         return render_template("main.html", form=form, short_url=short_url)
     return render_template("main.html", form=form)
+
 
 @app.route("/<string:short_id>", methods=["GET"])
 def redirect_view(short_id):
