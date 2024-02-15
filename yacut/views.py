@@ -1,6 +1,9 @@
 import random
+
 from flask import flash, redirect, render_template, url_for
+
 from settings import AUTO_LEN_SHORT, CHAR_SET
+
 from . import app, db
 from .forms import URLForm
 from .models import URLMap
@@ -16,7 +19,7 @@ def get_unique_short_id(symbols=CHAR_SET, length=AUTO_LEN_SHORT):
     return result
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=("GET", "POST",))
 def index_view():
     """
     Отображает форму для ввода URL и создания короткой ссылки.
@@ -40,7 +43,7 @@ def index_view():
     return render_template("main.html", form=form)
 
 
-@app.route("/<string:short_id>", methods=["GET"])
+@app.route("/<string:short_id>", methods=("GET",))
 def redirect_view(short_id):
     """
     Перенаправляет короткую ссылку на оригинальный URL.

@@ -1,13 +1,16 @@
 from http import HTTPStatus
+
 from flask import jsonify, request, url_for
+
 from settings import MAX_LEN_SHORT, REGEX_SHORT
+
 from . import app, db
 from .error_handlers import InvalidAPIUsage
 from .models import URLMap
 from .views import get_unique_short_id
 
 
-@app.route("/api/id/", methods=["POST"])
+@app.route("/api/id/", methods=("POST",))
 def create_url():
     """
     Создает новую короткую ссылку на основе предоставленного URL.
@@ -25,19 +28,20 @@ def create_url():
         )
 
     if (
-        "custom_id" not in data
-        or data["custom_id"] is None
-        or not data["custom_id"].strip()
+        "custom_id" in data
+        and data["custom_id"] is not None
+        and data["custom_id"].strip()
     ):
+        if (
+            len(data["custom_id"]) > MAX_LEN_SHORT
+            or REGEX_SHORT.search(data["custom_id"]) is None
+        ):
+            raise InvalidAPIUsage(
+                "Указано недопустимое имя для короткой ссылки", HTTPStatus.BAD_REQUEST
+            )
+    else:
         short = get_unique_short_id()
         data["custom_id"] = short
-    elif (
-        len(data["custom_id"]) > MAX_LEN_SHORT
-        or REGEX_SHORT.search(data["custom_id"]) is None
-    ):
-        raise InvalidAPIUsage(
-            "Указано недопустимое имя для короткой ссылки", HTTPStatus.BAD_REQUEST
-        )
 
     if URLMap.query.filter_by(short=data["custom_id"]).first() is not None:
         raise InvalidAPIUsage(
@@ -61,7 +65,7 @@ def create_url():
     )
 
 
-@app.route("/api/id/<string:short_id>/", methods=["GET"])
+@app.route("/api/id/<string:short_id>/", methods=("GET",))
 def get_url(short_id):
     """
     Получает оригинальную ссылку по заданному короткому идентификатору.
