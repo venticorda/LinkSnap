@@ -16,32 +16,38 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Or, from [PyPI](https://pypi.org/project/uv/):
+Или через [PyPI](https://pypi.org/project/uv/):
 
 ```bash
-# With pip.
+# pip.
 pip install uv
 ```
 
 ```bash
-# Or pipx.
+# pipx.
 pipx install uv
 ```
 
 Клонировать репозиторий и перейти в него в командной строке:
 
-```
+```bash
 git clone git@github.com:venticorda/LinkSnap.git
 ```
 
-```
+```bash
 cd LinkSnap
 ```
 
-===============================
+Создайте свой .env
+
+Закрепите за этим проектом необходимую версию Python:
+
+```bash
+uv python pin 3.9.11 
+```
 
 Запустить проект:
-```
+```bash
 uv run python -m flask run   
 ```
 ## Использованные технологии
