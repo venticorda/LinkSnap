@@ -3,7 +3,7 @@ name = "LinkSnap"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = "==3.9.11"
 dependencies = [
     "alembic==1.7.5",
     "attrs==21.4.0 ; python_full_version >= '2.7'",

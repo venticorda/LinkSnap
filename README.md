@@ -38,13 +38,8 @@ git clone git@github.com:venticorda/LinkSnap.git
 cd LinkSnap
 ```
 
-Создайте свой .env
+Создайте свой .env. Есть пример в env_example.
 
-Закрепите за этим проектом необходимую версию Python:
-
-```bash
-uv python pin 3.9.11 
-```
 
 Запустить проект:
 ```bash
