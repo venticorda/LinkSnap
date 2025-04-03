@@ -12,8 +12,8 @@ sys.path.append(str(BASE_DIR))
 
 
 try:
-    from yacut import app, db
-    from yacut.models import URLMap
+    from LinkSnap import app, db
+    from LinkSnap.models import URLMap
 except NameError:
     raise AssertionError(
         'Не обнаружен объект приложения. Создайте экземпляр класса Flask и '

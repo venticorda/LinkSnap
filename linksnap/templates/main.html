@@ -1,0 +1,69 @@
+{% extends "base.html" %} 
+
+{% block title %}LinkSnap - укоротитель ссылок{% endblock %} 
+
+{% block content %}
+<main>
+  <section class="container my-5 px-4">
+    <h1 class="text-center">
+      <span style="color:rgb(138, 43, 226)">Link</span>Snap
+    </h1>
+    <p class="text-center my-4">
+      Создайте короткую ссылку автоматически или предложите свой вариант
+    </p>
+
+    <div class="container">
+      <div class="row my-3">
+        <div class="col-sm-12 col-md-8 offset-md-2">
+          <form method="POST" novalidate>
+            {{ form.csrf_token }}
+            
+            <div class="mb-3">
+              {{ form.original_link(class="form-control form-control-lg py-2", placeholder=form.original_link.label.text) }}
+              <p>
+                {% if form.original_link.errors %}
+                  {% for error in form.original_link.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                  {% endfor %}
+                {% endif %}
+              </p>
+            </div>
+
+            <div class="mb-3">
+              {{ form.custom_id(class="form-control form-control-lg py-2", placeholder=form.custom_id.label.text) }}
+              <p>
+                {% if form.custom_id.errors %}
+                  {% for error in form.custom_id.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                  {% endfor %}
+                {% endif %}
+              </p>
+            </div>
+
+            {{ form.submit(class="btn btn-primary w-100") }}
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-info">{{ message }}</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+
+          {% if short_url %}
+            <p><strong>Ваша новая ссылка готова:</strong></p>
+            <a href="{{ short_url }}" class="btn btn-success">{{ short_url }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
